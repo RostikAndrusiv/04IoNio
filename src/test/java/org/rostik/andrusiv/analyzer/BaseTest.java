@@ -1,38 +1,31 @@
 package org.rostik.andrusiv.analyzer;
 
 import lombok.SneakyThrows;
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.rostik.andrusiv.analyzer.reciever.DiskAnalyzerTest;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.file.*;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class DiskAnalyzerTest {
+public class BaseTest {
+
     private static final String PATH1 = "test/1s/1as.txt";
     private static final String PATH2 = "test/2s/2ass.txt";
     private static final String PATH3 = "test/3s/3bsss.txt";
     private static final String PATH4 = "test/4s/4zssss.txt";
     private static final String PATH5 = "test/4s/0rrrrr.txt";
     private static final String PATH6 = "test/1s/0pqdsrrrr.txt";
-
-    private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-
-    @Before
-    public void beforeTest() {
-        System.setOut(new PrintStream(baos));
-    }
-
-    @After
-    public void afterTest() {
-        System.setOut(originalOut);
-    }
 
     @BeforeClass
     public static void setup() throws IOException {
@@ -67,40 +60,27 @@ public class DiskAnalyzerTest {
     }
 
     @SneakyThrows
-    private static Path createFile(Path p) {
+    protected static Path createFile(Path p) {
         return Files.createFile(p);
     }
 
     @SneakyThrows
-    private static Path createDirectories(Path p) {
+    protected static Path createDirectories(Path p) {
         return Files.createDirectories(p.getParent());
     }
 
-    @Test
-    public void printPathFileWithMostS() {
-        DiskAnalyzer.printPathFileWithMostS("test/");
-        assertEquals("test\\4s\\4zssss.txt", baos.toString().trim());
+    protected static final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    protected final PrintStream originalOut = System.out;
+
+    @Before
+    public void beforeTest() {
+        System.setOut(new PrintStream(baos));
     }
 
-    @Test
-    public void printPathFileWithMostSNullTest() {
-        DiskAnalyzer.printPathFileWithMostS(null);
-        assertTrue(baos.toString().contains("path is null"));
+    @After
+    public void afterTest() {
+        System.setOut(originalOut);
     }
-
-    @Test
-    public void printFilesBySize() {
-        DiskAnalyzer.printFilesBySize("test/");
-        assertEquals("[0pqdsrrrr.txt, 0rrrrr.txt, 4zssss.txt, 3bsss.txt, 2ass.txt]", baos.toString().trim());
-    }
-
-    @Test
-    public void printAvgFilesSize() {
-        DiskAnalyzer.printAvgFilesSize("test/");
-        assertEquals("3584.0", baos.toString().trim());
-    }
-
-
 
     private static void setFileSize(String pathToFile, int size) {
         final ByteBuffer buf = ByteBuffer.allocate(size);

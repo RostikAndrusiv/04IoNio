@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.rostik.andrusiv.FastFileMover.FastFileMover.*;
 
-public class Benchmark {
+public class FastFileMoverBenchmark {
     public static void main(String[] args) throws IOException {
         org.openjdk.jmh.Main.main(args);
     }
@@ -22,7 +22,7 @@ public class Benchmark {
         public String out;
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
     @Fork(value = 1)
@@ -32,7 +32,7 @@ public class Benchmark {
         inputStreamMover(state.in, state.out);
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
     @Fork(value = 1)
@@ -42,7 +42,7 @@ public class Benchmark {
         inputStreamBufferedMover(state.in, state.out);
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
     @Fork(value = 1)
@@ -52,7 +52,7 @@ public class Benchmark {
         fileChannelMover(state.in, state.out);
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @BenchmarkMode(Mode.AverageTime)
     @Fork(value = 1)
