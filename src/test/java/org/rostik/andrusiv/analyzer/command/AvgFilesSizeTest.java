@@ -1,15 +1,11 @@
 package org.rostik.andrusiv.analyzer.command;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.rostik.andrusiv.analyzer.command.operationResult.impl.AverageOperationResult;
-import org.rostik.andrusiv.analyzer.command.operationResult.impl.ByMostCharacterRepeatsOperationResult;
 import org.rostik.andrusiv.analyzer.reciever.DiskAnalyzer;
 
-import java.util.Optional;
 import java.util.OptionalDouble;
 
 import static org.junit.Assert.*;

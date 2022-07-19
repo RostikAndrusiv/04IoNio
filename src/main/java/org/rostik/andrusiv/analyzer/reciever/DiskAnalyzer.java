@@ -15,7 +15,6 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
 @Slf4j
-//TODO getFilesWithSize1, findFilePathByFileName return path and print in printPathFileWithMostS
 public class DiskAnalyzer {
 
     private static final String PATH_IS_NOT_VALID = "path is not valid: ";

@@ -1,13 +1,7 @@
 package org.rostik.andrusiv.analyzer.command.operationResult.impl;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.rostik.andrusiv.analyzer.BaseTest;
-import org.rostik.andrusiv.analyzer.reciever.DiskAnalyzerTest;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 

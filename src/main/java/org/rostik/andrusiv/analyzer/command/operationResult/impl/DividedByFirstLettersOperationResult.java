@@ -1,7 +1,6 @@
 package org.rostik.andrusiv.analyzer.command.operationResult.impl;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.rostik.andrusiv.analyzer.command.operationResult.OperationResult;
 

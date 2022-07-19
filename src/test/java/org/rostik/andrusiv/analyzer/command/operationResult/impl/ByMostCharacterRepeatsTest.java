@@ -2,7 +2,6 @@ package org.rostik.andrusiv.analyzer.command.operationResult.impl;
 
 import org.junit.Test;
 import org.rostik.andrusiv.analyzer.BaseTest;
-import org.rostik.andrusiv.analyzer.reciever.DiskAnalyzerTest;
 
 import static org.junit.Assert.*;
 

@@ -1,6 +1,5 @@
 package org.rostik.andrusiv.analyzer.command;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rostik.andrusiv.analyzer.command.operationResult.impl.FilesSortedBySizeOperationResult;
 import org.rostik.andrusiv.analyzer.reciever.DiskAnalyzer;
