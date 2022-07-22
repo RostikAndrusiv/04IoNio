@@ -2,6 +2,7 @@ package org.rostik.andrusiv.analyzer.reciever;
 
 import org.junit.*;
 import org.rostik.andrusiv.analyzer.BaseTest;
+import org.rostik.andrusiv.analyzer.exception.PathIsNullException;
 
 import java.nio.file.*;
 import java.util.*;
@@ -9,7 +10,6 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class DiskAnalyzerTest extends BaseTest {
-
 
     @Test
     public void findPathToFileByMostSCharacterRepeatTest() {
@@ -23,6 +23,11 @@ public class DiskAnalyzerTest extends BaseTest {
         Optional<String> opt = DiskAnalyzer.findPathToFileByMostSCharacterRepeat(Path.of("bla-bla"));
         Assert.assertTrue(opt.isEmpty());
         Assert.assertTrue(baos.toString().contains("path is not valid:"));
+    }
+
+    @Test(expected = PathIsNullException.class)
+    public void findPathToFileByMostSCharacterRepeatNullTest() {
+        Optional<String> opt = DiskAnalyzer.findPathToFileByMostSCharacterRepeat(null);
     }
 
     @Test
@@ -40,6 +45,11 @@ public class DiskAnalyzerTest extends BaseTest {
         Assert.assertTrue(baos.toString().contains("path is not valid:"));
     }
 
+    @Test(expected = PathIsNullException.class)
+    public void getFilesSortedBySizeNullTest() {
+        List<String> result = DiskAnalyzer.getFilesSortedBySize(null);
+    }
+
     @Test
     public void getAvgFilesSizeTest() {
         OptionalDouble result = DiskAnalyzer.getAvgFilesSize(Path.of("test/"));
@@ -54,8 +64,13 @@ public class DiskAnalyzerTest extends BaseTest {
         Assert.assertTrue(baos.toString().contains("path is not valid:"));
     }
 
+    @Test(expected = PathIsNullException.class)
+    public void getAvgFilesSizeNullTest() {
+        OptionalDouble result = DiskAnalyzer.getAvgFilesSize(null);
+    }
+
     @Test
-    public void divideByFirstLettersTest1() {
+    public void divideByFirstLettersTest() {
         Map<Character, Long> expected = new HashMap<>();
         expected.put('4', 1L);
         expected.put('3', 1L);
@@ -68,9 +83,14 @@ public class DiskAnalyzerTest extends BaseTest {
     }
 
     @Test
-    public void divideByFirstLettersNotValidInputTest1() {
+    public void divideByFirstLettersNotValidInputTest() {
         Map<Character, Long> result = DiskAnalyzer.divideByFirstLetters(Path.of("bla-bla"));
         Assert.assertTrue(result.isEmpty());
         Assert.assertTrue(baos.toString().contains("path is not valid:"));
+    }
+
+    @Test(expected = PathIsNullException.class)
+    public void divideByFirstLettersNullTest() {
+        Map<Character, Long> result = DiskAnalyzer.divideByFirstLetters(null);
     }
 }

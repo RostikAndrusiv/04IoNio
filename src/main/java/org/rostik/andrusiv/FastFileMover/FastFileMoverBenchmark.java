@@ -15,10 +15,10 @@ public class FastFileMoverBenchmark {
 
     @State(Scope.Benchmark)
     public static class BenchmarkState {
-        @Param({"D:/2/1.jpg"})
+        @Param({"C:/2/10.avi"})
         public String in;
 
-        @Param({"D:/2/2.jpg"})
+        @Param({"C:/2/20.avi"})
         public String out;
     }
 

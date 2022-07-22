@@ -17,7 +17,6 @@ import java.nio.file.*;
 import java.util.Comparator;
 import java.util.List;
 
-
 public class BaseTest {
 
     private static final String PATH1 = "test/1s/1as.txt";

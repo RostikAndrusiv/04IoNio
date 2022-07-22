@@ -9,6 +9,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
+//TODO exception, nullcheck.... DONE
+//TODO FASFILEMOVER optimization nio2... didnt found
+//TODO externalizable read about... DONE
+//TODO serialization/de singletons, ENUM read about DONE
+//TODO serialization cyclic dependencies
+//TODO spy in tests instead redirecting sout
 public class Main {
     static final Map<Integer, DiskAnalyzerOperation<? extends OperationResult>> COMMANDS = Map.of(
             1, new ByMostCharacterRepeats(),

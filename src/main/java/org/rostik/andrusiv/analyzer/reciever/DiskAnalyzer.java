@@ -2,6 +2,7 @@ package org.rostik.andrusiv.analyzer.reciever;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.rostik.andrusiv.analyzer.exception.PathIsNullException;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class DiskAnalyzer {
     }
 
     public static Map<Character, Long> divideByFirstLetters(Path path) {
+        if (Objects.isNull(path)){
+            throw new PathIsNullException("path is null");
+        }
         try (Stream<Path> stream = Files.walk(path)) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
@@ -38,6 +42,9 @@ public class DiskAnalyzer {
     }
 
     public static List<String> getFilesSortedBySize(Path path) {
+        if (Objects.isNull(path)){
+            throw new PathIsNullException("path is null");
+        }
         try (Stream<Path> stream = Files.walk(path)) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
@@ -54,6 +61,9 @@ public class DiskAnalyzer {
 
     @SneakyThrows
     public static OptionalDouble getAvgFilesSize(Path path) {
+        if (Objects.isNull(path)){
+            throw new PathIsNullException("path is null");
+        }
         try (Stream<Path> stream = Files.walk(path)) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
@@ -67,6 +77,9 @@ public class DiskAnalyzer {
     }
 
     public static Optional<String> findPathToFileByMostSCharacterRepeat(Path path) {
+        if (Objects.isNull(path)){
+            throw new PathIsNullException("path is null");
+        }
         try (Stream<Path> stream = Files.walk(path)) {
             TreeMap<Long, Path> filesMap = stream
                     .filter(file -> !Files.isDirectory(file))

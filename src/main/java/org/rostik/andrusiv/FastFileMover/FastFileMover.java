@@ -30,7 +30,7 @@ public class FastFileMover {
     public static void inputStreamBufferedMover(String in, String out) {
         try (InputStream is = new FileInputStream(in);
              OutputStream os = new FileOutputStream(out)) {
-            byte[] buffer = new byte[102400];
+            byte[] buffer = new byte[1024];
             int r = is.read(buffer);
             while (r != -1) {
                 os.write(buffer, 0, r);
