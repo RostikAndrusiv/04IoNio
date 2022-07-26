@@ -3,6 +3,8 @@ package org.rostik.andrusiv.analyzer.reciever;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.rostik.andrusiv.analyzer.exception.PathIsNullException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 @Slf4j
 public class DiskAnalyzer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiskAnalyzer.class);
 
     private static final String PATH_IS_NOT_VALID = "path is not valid: ";
 

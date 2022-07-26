@@ -1,8 +1,13 @@
 package org.rostik.andrusiv.analyzer.reciever;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
 import org.junit.*;
 import org.rostik.andrusiv.analyzer.BaseTest;
+import org.rostik.andrusiv.analyzer.MemoryAppender;
 import org.rostik.andrusiv.analyzer.exception.PathIsNullException;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.*;
 import java.util.*;
@@ -10,6 +15,27 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class DiskAnalyzerTest extends BaseTest {
+
+    private static MemoryAppender memoryAppender;
+    private static final String LOGGER_NAME = "org.rostik.andrusiv.analyzer.reciever";
+    private static final String MSG = "path is not valid: ";
+
+    @Before
+    public void beforeTest() {
+        Logger logger = (Logger) LoggerFactory.getLogger(LOGGER_NAME);
+        memoryAppender = new MemoryAppender();
+        memoryAppender.setContext((LoggerContext) LoggerFactory.getILoggerFactory());
+        logger.setLevel(Level.DEBUG);
+        logger.addAppender(memoryAppender);
+        memoryAppender.start();
+
+    }
+
+    @After
+    public void afterTest() {
+        memoryAppender.reset();
+        memoryAppender.stop();
+    }
 
     @Test
     public void findPathToFileByMostSCharacterRepeatTest() {
@@ -22,8 +48,9 @@ public class DiskAnalyzerTest extends BaseTest {
     public void findPathToFileByMostSCharacterRepeatNotValidInputTest() {
         Optional<String> opt = DiskAnalyzer.findPathToFileByMostSCharacterRepeat(Path.of("bla-bla"));
         Assert.assertTrue(opt.isEmpty());
-        Assert.assertTrue(baos.toString().contains("path is not valid:"));
+        assertEquals(1, memoryAppender.search(MSG, Level.INFO).size());
     }
+
 
     @Test(expected = PathIsNullException.class)
     public void findPathToFileByMostSCharacterRepeatNullTest() {
@@ -42,7 +69,7 @@ public class DiskAnalyzerTest extends BaseTest {
     public void getFilesSortedBySizeNotValidInputTest() {
         List<String> result = DiskAnalyzer.getFilesSortedBySize(Path.of("bla-bla"));
         Assert.assertTrue(result.isEmpty());
-        Assert.assertTrue(baos.toString().contains("path is not valid:"));
+        assertEquals(1, memoryAppender.search(MSG, Level.INFO).size());
     }
 
     @Test(expected = PathIsNullException.class)
@@ -61,7 +88,7 @@ public class DiskAnalyzerTest extends BaseTest {
     public void getAvgFilesSizeNotValidInputTest() {
         OptionalDouble result = DiskAnalyzer.getAvgFilesSize(Path.of("bla-bla"));
         Assert.assertTrue(result.isEmpty());
-        Assert.assertTrue(baos.toString().contains("path is not valid:"));
+        assertEquals(1, memoryAppender.search(MSG, Level.INFO).size());
     }
 
     @Test(expected = PathIsNullException.class)
@@ -86,7 +113,7 @@ public class DiskAnalyzerTest extends BaseTest {
     public void divideByFirstLettersNotValidInputTest() {
         Map<Character, Long> result = DiskAnalyzer.divideByFirstLetters(Path.of("bla-bla"));
         Assert.assertTrue(result.isEmpty());
-        Assert.assertTrue(baos.toString().contains("path is not valid:"));
+        assertEquals(1, memoryAppender.search(MSG, Level.INFO).size());
     }
 
     @Test(expected = PathIsNullException.class)
